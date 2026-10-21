@@ -1,0 +1,169 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Конспект с доски</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: одна колонка, шаги по порядку, как на доске; формулы в моноширинных блоках */
+:root{
+  --bg:#f3f5f8; --surface:#ffffff; --fg:#14181f; --mute:#5a6474; --line:#dbe1ea;
+  --flame:#1f5fd1; --flame-soft:#e6eefc; --warn:#b35c00; --warn-soft:#fff3e2;
+  --f-body:"Golos Text",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --f-num:"JetBrains Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f131a; --surface:#171c25; --fg:#e7ebf2; --mute:#97a1b2; --line:#2a3240;
+  --flame:#6ea0ff; --flame-soft:#1a2740; --warn:#ffb454; --warn-soft:#2c2214; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f131a; --surface:#171c25; --fg:#e7ebf2; --mute:#97a1b2; --line:#2a3240;
+  --flame:#6ea0ff; --flame-soft:#1a2740; --warn:#ffb454; --warn-soft:#2c2214; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.55}
+.wrap{max-width:720px;margin:0 auto;padding-block:20px 48px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  display:flex;flex-direction:column;gap:14px}
+.eyebrow{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--flame);font-weight:700}
+h1{font-size:1.55rem;line-height:1.15;margin:2px 0 0;text-wrap:balance}
+.lead{color:var(--mute);margin:4px 0 0}
+.step{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px;min-width:0}
+.step h2{font-size:1.05rem;margin:0 0 8px;display:flex;gap:10px;align-items:baseline;text-wrap:balance}
+.step h2 .n{font:600 .9rem var(--f-num);color:var(--flame)}
+ul{margin:0;padding-left:1.2em}
+li{margin:2px 0}
+pre{font:.88rem/1.6 var(--f-num);background:var(--bg);border-radius:7px;padding:10px 12px;margin:8px 0 0;overflow-x:auto;font-variant-numeric:tabular-nums}
+.ans{color:var(--flame);font-weight:600}
+.note{font-size:.9rem;color:var(--mute);margin:8px 0 0}
+.key{border-color:var(--flame);background:var(--flame-soft)}
+.badge{font:600 .72rem var(--f-body);color:#fff;background:var(--flame);border-radius:4px;padding:1px 6px;letter-spacing:.03em}
+.warn{border-color:var(--warn);background:var(--warn-soft)}
+.warn h2{color:var(--warn)}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left}
+td.n,th.n{text-align:right;font-family:var(--f-num);font-variant-numeric:tabular-nums;white-space:nowrap}
+th{font-weight:600;color:var(--mute);font-size:.82rem}
+tr.big td{font-weight:600}
+</style>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">Combustion Technology · 19.10.2026 · FII, 2nd floor 5</div>
+  <h1>Конспект с доски</h1>
+  <p class="lead">Полный расчёт по нашему протоколу, по порядку, с ответами. Числа взяты из Measurement log.</p>
+</header>
+
+<section class="step">
+  <h2><span class="n">1</span>Данные из протокола</h2>
+  <div class="tw"><table>
+    <tr><th>Время</th><th class="n">Газомер, м³</th><th class="n">p газа, мбар</th><th class="n">Водомер, м³</th></tr>
+    <tr><td>12:35</td><td class="n">1788,905</td><td class="n">1058</td><td class="n">527,326</td></tr>
+    <tr><td>12:40</td><td class="n">1789,072</td><td class="n">1058</td><td class="n">527,371</td></tr>
+    <tr><td>12:45</td><td class="n">1789,172</td><td class="n">1058</td><td class="n">527,401</td></tr>
+  </table></div>
+  <ul style="margin-top:10px">
+    <li>Атмосферное давление: 1026 мбар; температура газа: 21,3 °C</li>
+    <li>Вода: вход t₁ = 38 °C, выход t₂ = 58 °C</li>
+    <li>TESTO: O₂ = 13,5 %, CO = 8 ppm, NOₓ = 33 ppm, t воздуха = 42,5 °C, t дыма = 122,7 °C</li>
+    <li>TESTO: η = 92,2 %, λ = 2,8</li>
+    <li>Константы с доски: c<sub>v</sub> = 4186,8 кДж/(м³·°C) (на кубометр воды), F<sub>é</sub> = 34 000 кДж/Нм³, c<sub>f</sub> = 1,35 кДж/(Нм³·°C)</li>
+  </ul>
+</section>
+
+<section class="step">
+  <h2><span class="n">2</span>Реакция на 1 Нм³ CH₄</h2>
+<pre>1 CH₄ + 2 O₂ + 7,52 N₂ → 1 CO₂ + 2 H₂O + 7,52 N₂</pre>
+  <p class="note">CH₄ 100 %. 1 кмоль = 22,41 Нм³ (0 °C, 1013,25 мбар), поэтому коэффициенты = объёмы. 7,52 = 2·79/21.</p>
+</section>
+
+<section class="step">
+  <h2><span class="n">3</span>Теоретические величины</h2>
+<pre>L₀  = 2 + 7,52      = <span class="ans">9,52</span>  Нм³/Нм³
+V₀d = 1 + 7,52      = <span class="ans">8,52</span>  Нм³/Нм³
+V₀w = 1 + 7,52 + 2  = <span class="ans">10,52</span> Нм³/Нм³</pre>
+</section>
+
+<section class="step key">
+  <h2><span class="n">4</span>Коэффициент избытка воздуха n <span class="badge">!!</span></h2>
+<pre>точно:      n = 1 + (V₀d/L₀)·O₂/(21 − O₂)
+              = 1 + (8,52/9,52)·(13,5/7,5)
+              = 1 + 0,895·1,8 = <span class="ans">2,61</span>
+
+упрощённо:  n = 21/(21 − 13,5) = <span class="ans">2,8</span>   (= λ с TESTO)</pre>
+  <p class="note">В отчёт идёт точная формула (обведена на доске). Дальше считаем с n = 2,61.</p>
+</section>
+
+<section class="step">
+  <h2><span class="n">5</span>Реальный воздух и дым</h2>
+<pre>(n − 1)·L₀ = 1,61·9,52 = 15,34 Нм³   ← лишний воздух
+
+L   = n·L₀            = 2,61·9,52     = <span class="ans">24,86</span> Нм³/Нм³
+V_d = V₀d + (n−1)·L₀  = 8,52 + 15,34  = <span class="ans">23,86</span> Нм³/Нм³
+V_w = V₀w + (n−1)·L₀  = 10,52 + 15,34 = <span class="ans">25,86</span> Нм³/Нм³</pre>
+</section>
+
+<section class="step">
+  <h2><span class="n">6</span>Сколько газа сгорело (в Нм³)</h2>
+<pre>V_g   = 1789,172 − 1788,905 = 0,267 м³   (12:35 → 12:45, 10 мин)
+
+V_GN  = V_g · p_газ/1013,25 · 273,15/(273,15 + t_газ)
+      = 0,267 · 1058/1013,25 · 273,15/294,45
+      = 0,267 · 1,0442 · 0,9277 = <span class="ans">0,2586 Нм³</span></pre>
+  <p class="note">1058 мбар в столбце «Gas pressure» — абсолютное давление газа, так и подставлено на доске (у препода вышло 0,258).</p>
+</section>
+
+<section class="step">
+  <h2><span class="n">7</span>КПД прямым методом</h2>
+<pre>G = 527,401 − 527,326 = 0,075 м³ воды
+
+η = G·(t₂ − t₁)·c_v / (F_é·V_GN) · 100%
+  = 0,075·(58 − 38)·4186,8 / (34000·0,2586) · 100%
+  = 6280 кДж / 8793 кДж · 100% = <span class="ans">71,4 %</span></pre>
+  <p class="note">Мощность газа: 8793 кДж / 600 с ≈ 14,7 кВт. В воду ушло 6280 кДж / 600 с ≈ 10,5 кВт.</p>
+</section>
+
+<section class="step">
+  <h2><span class="n">8</span>Потери с уходящими газами Q<sub>f</sub></h2>
+<pre>Q_f = V_w·(t_f − t_air)·c_f / F_é · 100%
+    = 25,86·(122,7 − 42,5)·1,35 / 34000 · 100%
+    = 25,86·80,2·1,35 / 34000 · 100% = <span class="ans">8,2 %</span></pre>
+</section>
+
+<section class="step">
+  <h2><span class="n">9</span>КПД косвенным методом</h2>
+<pre>Q_CO ≈ 8·10⁻⁶·23,86·12640/34000·100% ≈ 0,01 %   (8 ppm — ничтожно)
+Q_s  ≈ 2 %   (оценка, не измерялось)
+
+η = 100 − Q_f − Q_CO − Q_s = 100 − 8,2 − 0,01 − 2 = <span class="ans">89,8 %</span>
+без Q_s:  100 − 8,2 = 91,8 %   ≈ TESTO 92,2 % ✔</pre>
+</section>
+
+<section class="step">
+  <h2><span class="n">10</span>Итог</h2>
+  <div class="tw"><table>
+    <tr><th>Величина</th><th class="n">Значение</th><th>Единицы</th></tr>
+    <tr><td>L₀</td><td class="n">9,52</td><td>Нм³/Нм³</td></tr>
+    <tr><td>V₀d</td><td class="n">8,52</td><td>Нм³/Нм³</td></tr>
+    <tr><td>V₀w</td><td class="n">10,52</td><td>Нм³/Нм³</td></tr>
+    <tr><td>n (точно / упрощ. / TESTO)</td><td class="n">2,61 / 2,8 / 2,8</td><td>—</td></tr>
+    <tr><td>L</td><td class="n">24,86</td><td>Нм³/Нм³</td></tr>
+    <tr><td>V_d</td><td class="n">23,86</td><td>Нм³/Нм³</td></tr>
+    <tr><td>V_w</td><td class="n">25,86</td><td>Нм³/Нм³</td></tr>
+    <tr><td>V_GN (газ)</td><td class="n">0,2586</td><td>Нм³</td></tr>
+    <tr class="big"><td>η прямой</td><td class="n">71,4</td><td>%</td></tr>
+    <tr class="big"><td>Q_f</td><td class="n">8,2</td><td>%</td></tr>
+    <tr class="big"><td>η косвенный</td><td class="n">89,8</td><td>%</td></tr>
+    <tr><td>η TESTO</td><td class="n">92,2</td><td>%</td></tr>
+  </table></div>
+  <p class="note">Для вывода в отчёте: прямой КПД (71 %) заметно ниже косвенного (~90 %) и TESTO (92 %). Косвенный метод учитывает только потери с дымом. Прямой «видит» всё: нагрев корпуса и труб, нестационарный режим (температуры воды записаны всего один раз) и погрешность счётчиков за короткие 10 минут.</p>
+</section>
+
+<section class="step warn">
+  <h2><span class="n">!</span>Где доска расходится с формулой</h2>
+  <ul>
+    <li>На доске n = 2,46. Так выходит, если в знаменателе поставить 10,52 (V₀w) вместо 9,52 (L₀): 1 + (8,52/10,52)·1,8 = 2,46. По обведённой формуле нужно 9,52, тогда n = 2,61.</li>
+    <li>С n = 2,46 правильная арифметика даёт L = 23,42, V_d = 22,42, V_w = 24,42 (на доске записано 22,2 / 21,2 / 23,2) и Q_f = 7,8 %, η косв. ≈ 90,2 %.</li>
+    <li>Если препод требует именно её цифры, бери вариант с 2,46. Лучше уточнить у неё, какое n брать.</li>
+  </ul>
+</section>
+</div>
+
+</body></html>

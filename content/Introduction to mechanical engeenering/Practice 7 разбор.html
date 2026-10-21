@@ -1,0 +1,416 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Practice 7 разбор</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Oswald:wght@500;600&display=swap">
+<style>
+:root{
+  /* layout: one engineering sheet, wide hairline rules, solution steps run down a numbered spine */
+  --bg:#F2F4F0; --paper:#FBFCFA; --ink:#17211D; --muted:#55645D; --rule:#C6CFC9;
+  --accent:#0A6B66; --amber:#9C5400; --tint:#E3ECE8; --warn:#FFF0D8;
+  --display:'Oswald','Arial Narrow',Impact,sans-serif;
+  --body:'IBM Plex Sans','Segoe UI',Roboto,Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F1513; --paper:#161E1B; --ink:#E6EEE9; --muted:#9BAAA2; --rule:#2B3833;
+    --accent:#4CC9BE; --amber:#F0B05A; --tint:#1C2824; --warn:#2A2216; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F1513; --paper:#161E1B; --ink:#E6EEE9; --muted:#9BAAA2; --rule:#2B3833;
+  --accent:#4CC9BE; --amber:#F0B05A; --tint:#1C2824; --warn:#2A2216; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{
+  background:var(--bg); color:var(--ink); font:16px/1.6 var(--body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  padding-block:28px 64px; -webkit-text-size-adjust:100%;
+}
+.wrap{max-width:44rem;margin:0 auto}
+.wrap>*{min-width:0}
+h1,h2,h3{font-family:var(--display);font-weight:500;text-transform:uppercase;letter-spacing:.03em;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.1rem,9vw,3.4rem);line-height:1.02;font-weight:600}
+h2{font-size:1.65rem;line-height:1.1;border-top:3px solid var(--ink);padding-top:.7rem;margin-top:3.2rem}
+h3{font-size:1.15rem;letter-spacing:.05em;margin:1.8rem 0 .4rem}
+p{margin:.6rem 0}
+.kicker{font-size:.75rem;text-transform:uppercase;letter-spacing:.14em;color:var(--muted);font-weight:600}
+.lede{font-size:1.08rem;margin-top:1rem}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+nav.jump{display:flex;flex-wrap:wrap;gap:.4rem;margin:1.4rem 0 0}
+nav.jump a{border:1px solid var(--rule);padding:.3rem .7rem;text-decoration:none;font-size:.85rem;color:var(--ink);background:var(--paper)}
+nav.jump a:hover{border-color:var(--accent);color:var(--accent)}
+.core{margin-top:1.4rem;border:1px solid var(--rule);background:var(--paper);padding:1rem 1.1rem}
+.core ul{margin:.4rem 0 0;padding-left:1.1rem}
+.core li{margin:.25rem 0}
+.eq{display:block;margin:.6rem 0;padding:.55rem .8rem;background:var(--tint);overflow-x:auto;font-size:1.05rem;white-space:nowrap}
+.fr{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 .2em;line-height:1.25}
+.fr>span:first-child{border-bottom:1px solid currentColor;padding:0 .25em}
+.fr>span:last-child{padding:0 .25em}
+.rt{display:inline-block;border-top:1px solid currentColor;padding:0 .15em;margin-left:.05em}
+sub,sup{line-height:0}
+.gloss{margin:1rem 0 0;padding:0}
+.gloss>div{display:flex;gap:.9rem;padding:.7rem 0;border-bottom:1px solid var(--rule)}
+.gloss dt{flex:0 0 4.2rem;font-size:1.35rem;font-weight:500;color:var(--accent);line-height:1.2}
+.gloss dt small{display:block;font-size:.7rem;color:var(--muted);font-weight:400;letter-spacing:.04em}
+.gloss dd{margin:0;min-width:0}
+.gloss b{font-weight:600}
+.tag{display:inline-block;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;background:var(--tint);padding:.05rem .4rem;margin-right:.3rem}
+.warn{background:var(--warn);padding:.7rem .9rem;margin:.8rem 0;border:1px solid var(--rule)}
+.given{background:var(--tint);padding:.8rem 1rem;margin:.8rem 0}
+.given .lab{font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:600;display:block;margin-bottom:.2rem}
+ol.q{margin:.4rem 0;padding-left:1.4rem}
+ol.q li{margin:.2rem 0}
+ol.steps{list-style:none;counter-reset:s;margin:1rem 0;padding:0}
+ol.steps>li{counter-increment:s;position:relative;padding:.2rem 0 1rem 2.4rem;border-left:1px solid var(--rule);margin-left:.9rem}
+ol.steps>li::before{content:counter(s);position:absolute;left:-.95rem;top:.1rem;width:1.9rem;height:1.9rem;background:var(--ink);color:var(--bg);font-family:var(--display);font-size:1rem;display:flex;align-items:center;justify-content:center}
+ol.steps>li>b.t{display:block;font-weight:600}
+.calc{background:var(--paper);border:1px solid var(--rule);padding:.6rem .85rem;margin:.5rem 0;overflow-x:auto;font-variant-numeric:tabular-nums}
+.calc span.ln{display:block;white-space:nowrap;padding:.1rem 0}
+.ans{display:inline-block;background:var(--tint);border-bottom:2px solid var(--accent);padding:.05rem .45rem;font-weight:600;font-variant-numeric:tabular-nums}
+.final{margin-top:.8rem;padding:.8rem 1rem;border:2px solid var(--accent);background:var(--paper)}
+.final b{color:var(--accent)}
+.chartbox{margin:.8rem 0;border:1px solid var(--rule);background:var(--paper);padding:.6rem .6rem .8rem}
+svg.chart{display:block;width:100%;max-width:30rem;height:auto;margin:0 auto}
+svg.chart .gr{stroke:var(--rule);stroke-width:1;fill:none}
+svg.chart .ax{stroke:var(--ink);stroke-width:1.2}
+svg.chart .opt{stroke:var(--muted);stroke-width:1;stroke-dasharray:4 3}
+svg.chart .cl{fill:none;stroke:var(--amber);stroke-width:2.4}
+svg.chart .ce{fill:none;stroke:var(--accent);stroke-width:2.4}
+svg.chart .pl{fill:var(--amber);stroke:var(--paper);stroke-width:1.5}
+svg.chart .pe{fill:var(--accent);stroke:var(--paper);stroke-width:1.5}
+svg.chart text{font-family:var(--body);font-size:10px}
+svg.chart .tx{fill:var(--muted)}
+svg.chart .tl{fill:var(--amber)}
+svg.chart .tr{fill:var(--accent)}
+.legend{display:flex;flex-wrap:wrap;gap:.3rem 1.2rem;font-size:.85rem;margin:.5rem 0 0;justify-content:center}
+.legend i{display:inline-block;width:1.4rem;height:3px;vertical-align:middle;margin-right:.4rem}
+.tblwrap{overflow-x:auto;margin:.6rem 0}
+table{border-collapse:collapse;font-variant-numeric:tabular-nums;min-width:100%}
+th,td{padding:.35rem .7rem;border-bottom:1px solid var(--rule);text-align:left;vertical-align:top}
+th{font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.task{border-top:1px solid var(--ink);margin-top:2rem;padding-top:.8rem}
+.task h3{margin-top:0}
+details.answer{margin-top:.8rem;border:1px solid var(--rule);background:var(--paper)}
+details.answer summary{cursor:pointer;padding:.6rem .9rem;font-weight:600;list-style:none}
+details.answer summary::-webkit-details-marker{display:none}
+details.answer summary::before{content:"▸ ";color:var(--accent)}
+details.answer[open] summary::before{content:"▾ "}
+details.answer .in{padding:0 .9rem .8rem;border-top:1px solid var(--rule)}
+.cheat{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,19rem),1fr));gap:1rem;margin-top:1rem}
+.cheat>section{border:1px solid var(--ink);background:var(--paper);padding:.8rem 1rem;min-width:0}
+.cheat h3{margin:0 0 .4rem;font-size:1rem}
+.cheat .eq{font-size:.98rem;background:var(--tint)}
+.cheat ul{margin:.3rem 0;padding-left:1.1rem}
+.cheat li{margin:.25rem 0}
+@media (prefers-reduced-motion:no-preference){nav.jump a{transition:border-color .15s,color .15s}}
+</style>
+<div class="wrap">
+
+<header>
+<div class="kicker">BME · Practice 7 · КПД и коэффициент нагрузки</div>
+<h1>Practice 7 разбор</h1>
+<p class="lede">Ща разложим эту хуйню по полочкам. На самом деле там одна идея и пять формул, всё остальное это подстановка. Внутри: все символы по одному, решения 7.1–7.3 с каждым шагом, пять новых задач с ответами под спойлером и чит-шит в конце.</p>
+<nav class="jump" aria-label="Разделы">
+<a href="#symbols">Символы</a><a href="#ex71">7.1</a><a href="#ex72">7.2</a><a href="#ex73">7.3</a><a href="#tasks">5 задач</a><a href="#cheat">Чит-шит</a>
+</nav>
+</header>
+
+<div class="core">
+<b>Одна идея на всё занятие.</b> Машина берёт мощность на входе, часть отдаёт в дело, остальное греет воздух.
+<ul>
+<li>Вход = полезное + потери: P<sub>in</sub> = P<sub>useful</sub> + P<sub>loss</sub></li>
+<li>КПД: η = P<sub>useful</sub> / P<sub>in</sub> (сколько из входа дошло до дела)</li>
+<li>Нагрузка: x = P<sub>useful</sub> / P<sub>n</sub> (какую долю от паспортной мощности выжимаем)</li>
+<li>Потери: P<sub>loss</sub> = P<sub>c</sub> + x<sup>n</sup>·P<sub>v1</sub> (часть не зависит от нагрузки, часть растёт с ней)</li>
+</ul>
+</div>
+
+<h2 id="symbols">Все символы</h2>
+<p>В листе нет никакой θ (теты). Есть <b>η</b>, это «эта», похожа на n с хвостом вниз. Дальше идут все буквы, которые встречаются в условиях и формулах.</p>
+<dl class="gloss">
+<div><dt>η<small>эта</small></dt><dd><b>КПД.</b> Доля входной мощности, которая стала полезной. От 0 до 1 или в процентах: 0.64 = 64 %. Не бывает больше 1, иначе вечный двигатель.</dd></div>
+<div><dt>x<small>load factor</small></dt><dd><b>Коэффициент нагрузки.</b> x = P<sub>useful</sub> / P<sub>n</sub>. x = 1 это полная паспортная нагрузка, x = 0.5 половина, x = 0 холостой ход.</dd></div>
+<div><dt>P<small>power</small></dt><dd><b>Мощность</b>, в ваттах (W). 1 kW = 1000 W. Это скорость, с которой передаётся энергия.</dd></div>
+<div><dt>W<small>work</small></dt><dd><b>Работа или энергия</b>, в джоулях (J) или kWh. W = P·t, если мощность постоянная. Не путай с единицей W (ватт), это другая хуйня.</dd></div>
+<div><dt>t<small>time</small></dt><dd><b>Время</b>. Если мощность в kW, а время в часах, получишь kWh. В 7.2 время в минутах, но в отношениях они сокращаются.</dd></div>
+<div><dt>P<sub>in</sub><small>P<sub>input</sub></small></dt><dd><b>Входная мощность.</b> Что машина забирает: из розетки у мотора, от мотора у редуктора. В редукторе её же обозначают с индексом 1.</dd></div>
+<div><dt>P<sub>useful</sub><small>P<sub>out</sub></small></dt><dd><b>Полезная мощность</b> на выходе. У редуктора это P<sub>2</sub> = M<sub>2</sub>·ω<sub>2</sub>.</dd></div>
+<div><dt>P<sub>loss</sub></dt><dd><b>Мощность потерь.</b> Всё, что ушло в тепло, шум, трение: P<sub>in</sub> − P<sub>useful</sub>.</dd></div>
+<div><dt>P<sub>n</sub><small>nominal</small></dt><dd><b>Номинальная полезная мощность.</b> Та, на которую машина рассчитана, написана на шильдике. При x = 1 полезная мощность равна ей.</dd></div>
+<div><dt>P<sub>c</sub><small>constant</small></dt><dd><b>Постоянные потери.</b> Есть всегда, даже без нагрузки: трение в подшипниках, перемагничивание железа мотора, вентилятор. Не зависят от x.</dd></div>
+<div><dt>P<sub>v1</sub><small>variable</small></dt><dd><b>Переменные потери при x = 1.</b> Растут с нагрузкой, например нагрев обмоток током. Индекс 1 значит «при x = 1», при другом x они равны x<sup>n</sup>·P<sub>v1</sub>.</dd></div>
+<div><dt>n<small>степень</small></dt><dd><b>Показатель степени в x<sup>n</sup>.</b> 1 для механики (шкивы), 2 для электрики (моторы), 3 для гидравлики (насосы, вентиляторы). Это число тебе дают или выбирают по типу машины.</dd></div>
+<div><dt>n<sub>1</sub>, n<sub>2</sub><small>RPM</small></dt><dd><b>Обороты в минуту</b> (revolutions per minute). Та же буква n, но это совсем другое. Если n стоит рядом с RPM, то это обороты, если в степени у x, то показатель.</dd></div>
+<div><dt>ω<small>омега</small></dt><dd><b>Угловая скорость</b> в рад/с. Переводится из оборотов: ω = 2π·n / 60. Деление на 60 это минуты в секунды, 2π это один оборот в радианах.</dd></div>
+<div><dt>π<small>пи</small></dt><dd>3.14159. Один оборот = 2π радиан.</dd></div>
+<div><dt>i<small>gear ratio</small></dt><dd><b>Передаточное отношение.</b> i = ω<sub>1</sub>/ω<sub>2</sub> = z<sub>2</sub>/z<sub>1</sub>. Показывает, во сколько раз выходной вал медленнее входного. i = 25 значит 25 оборотов червяка на один оборот колеса.</dd></div>
+<div><dt>z<small>teeth</small></dt><dd><b>Число зубьев.</b> z<sub>1</sub> у ведущей детали (у червяка это число заходов резьбы, там z<sub>1</sub> = 1), z<sub>2</sub> у ведомого колеса.</dd></div>
+<div><dt>M<small>torque</small></dt><dd><b>Крутящий момент</b>, в Н·м (Nm). Связь с мощностью: P = M·ω.</dd></div>
+<div><dt>1, 2<small>индексы</small></dt><dd>В редукторе <b>1 = ведущая</b> (driving, на входе), <b>2 = ведомая</b> (driven, на выходе). В 7.2 и 7.3 индексы значат другое: режим работы или точка измерения, читай условие.</dd></div>
+<div><dt>U, I<small>вольты, амперы</small></dt><dd><b>Напряжение и ток</b> мотора. Электрическая мощность на входе P<sub>in</sub> = U·I.</dd></div>
+<div><dt>m, m<sub>0</sub>, k, g<small>балансир</small></dt><dd>m это масса на плече, m<sub>0</sub> масса, которой уравновешивали на холостом ходу, k длина плеча (м), g = 9.81 м/с² ускорение свободного падения.</dd></div>
+<div><dt>x<sub>opt</sub></dt><dd><b>Нагрузка с максимальным КПД.</b> Для n = 2 это √(P<sub>c</sub>/P<sub>v1</sub>), для n = 3 это ∛(P<sub>c</sub>/(2P<sub>v1</sub>)).</dd></div>
+<div><dt>avg</dt><dd><b>Среднее за цикл</b>: η<sub>avg</sub>, x<sub>avg</sub>. Считается через энергии W, а не через мощности.</dd></div>
+</dl>
+
+<h2 id="ex71">Exercise 7.1 · Червячная передача</h2>
+<div class="given"><span class="lab">Дано</span>
+Червяк (z<sub>1</sub> = 1) крутит колесо. Отношение моментов M<sub>2</sub>/M<sub>1</sub> = 16, η = 64 %. Мотор крутит со скоростью n<sub>1</sub> = 1440 RPM, момент на колесе M<sub>2</sub> = 800 Nm.</div>
+<ol class="q" type="a"><li>z<sub>2</sub></li><li>i</li><li>мощность мотора</li></ol>
+
+<h3>Главный трюк: связать КПД с моментами</h3>
+<p>Мощность вращения P = M·ω. КПД это выход делить на вход:</p>
+<span class="eq">η = <span class="fr"><span>P<sub>2</sub></span><span>P<sub>1</sub></span></span> = <span class="fr"><span>M<sub>2</sub>·ω<sub>2</sub></span><span>M<sub>1</sub>·ω<sub>1</sub></span></span> = <span class="fr"><span>M<sub>2</sub></span><span>M<sub>1</sub></span></span>·<span class="fr"><span>ω<sub>2</sub></span><span>ω<sub>1</sub></span></span> = <span class="fr"><span>M<sub>2</sub>/M<sub>1</sub></span><span>i</span></span></span>
+<p>Потому что ω<sub>2</sub>/ω<sub>1</sub> = 1/i. Отсюда <b>M<sub>2</sub>/M<sub>1</sub> = η·i</b>. Идеальная передача (η = 1) увеличивает момент ровно во столько, во сколько уменьшает скорость. Реальная теряет часть.</p>
+
+<ol class="steps">
+<li><b class="t">a) и b) Передаточное отношение i</b>
+Из M<sub>2</sub>/M<sub>1</sub> = η·i выражаем i:
+<div class="calc"><span class="ln">i = <span class="fr"><span>M<sub>2</sub>/M<sub>1</sub></span><span>η</span></span> = <span class="fr"><span>16</span><span>0.64</span></span> = <span class="ans">25</span></span></div>
+Проценты в формулу идут как доли: 64 % = 0.64.</li>
+<li><b class="t">a) Число зубьев колеса z<sub>2</sub></b>
+<div class="calc"><span class="ln">i = <span class="fr"><span>z<sub>2</sub></span><span>z<sub>1</sub></span></span> ⇒ z<sub>2</sub> = i·z<sub>1</sub> = 25·1 = <span class="ans">25</span></span></div></li>
+<li><b class="t">c) Угловая скорость мотора ω<sub>1</sub></b>
+Мотор крутит червяк, а n<sub>1</sub> дана в оборотах в минуту, поэтому переводим в рад/с:
+<div class="calc"><span class="ln">ω<sub>1</sub> = <span class="fr"><span>2π·n<sub>1</sub></span><span>60</span></span> = <span class="fr"><span>2π·1440</span><span>60</span></span> = 150.80 rad/s</span></div></li>
+<li><b class="t">c) Момент на входе M<sub>1</sub></b>
+<div class="calc"><span class="ln">M<sub>1</sub> = <span class="fr"><span>M<sub>2</sub></span><span>16</span></span> = <span class="fr"><span>800</span><span>16</span></span> = 50 Nm</span></div></li>
+<li><b class="t">c) Мощность мотора</b>
+Мотор отдаёт червяку мощность P<sub>1</sub> = M<sub>1</sub>·ω<sub>1</sub>:
+<div class="calc"><span class="ln">P<sub>1</sub> = 50·150.80 = 7540 W = <span class="ans">7.54 kW</span></span></div>
+<b>Проверка другим путём.</b> Выходная мощность P<sub>2</sub> = M<sub>2</sub>·ω<sub>2</sub> = 800·6.032 = 4825 W. Делим на КПД:
+<div class="calc"><span class="ln">P<sub>1</sub> = <span class="fr"><span>P<sub>2</sub></span><span>η</span></span> = <span class="fr"><span>4825</span><span>0.64</span></span> = 7540 W ✓</span></div>
+Совпало, значит всё верно. Потери в передаче: 2714 W, они уходят теплом в масло и корпус.</li>
+</ol>
+<div class="final"><b>Ответ:</b> z<sub>2</sub> = 25, i = 25, мощность мотора ≈ 7.54 kW.</div>
+
+<h2 id="ex72">Exercise 7.2 · Мощность и КПД за цикл</h2>
+<div class="given"><span class="lab">Дано</span>
+Цикл повторяется, длится T = 40 min. При обработке детали входная мощность P<sub>in1</sub> = 8 kW, КПД при полной нагрузке η<sub>1</sub> = 79 %. Пока меняют заготовку (холостой ход), P<sub>in2</sub> = 1.3 kW.</div>
+<ol class="q" type="a"><li>За какое время надо менять деталь, чтобы средний КПД был η = 75 %?</li><li>Средняя нагрузка, если смена занимает 10 min.</li></ol>
+
+<h3>Идея: бюджет на холостой ход</h3>
+<p>Среднее арифметическое КПД (79 % и 0 %) даст хуйню, потому что режимы длятся разное время. Берём формулу из листа η<sub>avg</sub> = W<sub>useful</sub>/W<sub>input</sub>. Полезную энергию даёт только рабочий ход. Значит, при η<sub>avg</sub> = 75 % машине <b>разрешено</b> сожрать W<sub>useful</sub>/0.75. Сколько-то из этого уходит на сам рабочий ход, а остаток и есть бюджет, который можно спустить на холостой ход.</p>
+<p>t<sub>1</sub> это время работы, t<sub>2</sub> время смены детали (мои обозначения, в листе их нет). Удобно считать всё на 1 минуту рабочего хода, тогда вместо энергий можно двигать мощности.</p>
+
+<ol class="steps">
+<li><b class="t">Полезная мощность при работе</b>
+Из η = P<sub>useful</sub>/P<sub>input</sub>:
+<div class="calc"><span class="ln">P<sub>useful1</sub> = η<sub>1</sub>·P<sub>in1</sub> = 0.79·8 = 6.32 kW</span></div></li>
+<li><b class="t">a) Сколько входной мощности разрешено на минуту работы</b>
+Из η<sub>avg</sub> = W<sub>useful</sub>/W<sub>input</sub>: чтобы КПД был 75 %, на каждую минуту работы можно потратить
+<div class="calc"><span class="ln">P<sub>allowed</sub> = <span class="fr"><span>P<sub>useful1</sub></span><span>η<sub>avg</sub></span></span> = <span class="fr"><span>6.32</span><span>0.75</span></span> = 8.427 kW</span></div></li>
+<li><b class="t">a) Бюджет на холостой ход</b>
+Сам рабочий ход берёт 8 kW, остаток можно спустить на смену детали:
+<div class="calc"><span class="ln">ΔP = P<sub>allowed</sub> − P<sub>in1</sub> = 8.427 − 8 = 0.427 kW</span></div>
+Холостой ход жрёт 1.3 kW, значит на одну минуту работы можно позволить
+<div class="calc"><span class="ln"><span class="fr"><span>t<sub>2</sub></span><span>t<sub>1</sub></span></span> = <span class="fr"><span>ΔP</span><span>P<sub>in2</sub></span></span> = <span class="fr"><span>0.427</span><span>1.3</span></span> = 0.3282 минуты холостого хода</span></div></li>
+<li><b class="t">a) Раскидываем 40 минут цикла</b>
+На каждую минуту работы приходится 0.3282 минуты смены, то есть одна «минута работы» на деле занимает 1 + 0.3282 минуты цикла:
+<div class="calc">
+<span class="ln">t<sub>1</sub> = <span class="fr"><span>T</span><span>1 + t<sub>2</sub>/t<sub>1</sub></span></span> = <span class="fr"><span>40</span><span>1 + 0.3282</span></span> = 30.12 min</span>
+<span class="ln">t<sub>2</sub> = T − t<sub>1</sub> = 40 − 30.12 = <span class="ans">9.88 min</span></span>
+</div>
+Смена детали должна занимать <b>не дольше ≈ 9.9 min</b>, иначе средний КПД упадёт ниже 75 %.
+<div class="calc"><span class="ln">Одной формулой: t<sub>2</sub> = T·<span class="fr"><span>k</span><span>1 + k</span></span>,   k = <span class="fr"><span>P<sub>useful1</sub>/η<sub>avg</sub> − P<sub>in1</sub></span><span>P<sub>in2</sub></span></span></span></div>
+<b>Проверка</b> по формуле из листа: W<sub>useful</sub> = 6.32·30.12 = 190.3 kW·min, W<sub>input</sub> = 8·30.12 + 1.3·9.88 = 253.8 kW·min, η<sub>avg</sub> = 75.0 % ✓</li>
+<li><b class="t">b) Средняя нагрузка</b>
+x<sub>avg</sub> = W<sub>useful</sub>/W<sub>nominal</sub>. Пока машина работает, она на полной нагрузке, значит её номинальная полезная мощность P<sub>n</sub> = 6.32 kW. Номинальная энергия за цикл это P<sub>n</sub>·40 min.
+<div class="calc">
+<span class="ln">x<sub>avg</sub> = <span class="fr"><span>6.32·30</span><span>6.32·40</span></span> = <span class="fr"><span>30</span><span>40</span></span> = <span class="ans">0.75</span></span>
+</div>
+Получилось просто t<sub>1</sub>/T: машина работает на полную 30 мин из 40. Средний КПД при этом 74.9 %, чуть меньше 75 %, потому что 10 мин чуть дольше предельных 9.9 мин. Всё сходится.</li>
+</ol>
+<div class="final"><b>Ответ:</b> a) смена детали ≤ 9.9 min, b) средняя нагрузка x<sub>avg</sub> = 0.75 (75 %).</div>
+
+<h2 id="ex73">Exercise 7.3 · Балансирный мотор</h2>
+<div class="given"><span class="lab">Дано</span>
+n = 3000 RPM, P<sub>n</sub> = 420 W. Масса на холостом ходу m<sub>0</sub> = 0.02 kg, плечо k = 0.35 m. В первой точке m = 0.4 kg, U = 220 V, I = 2 A. Вторая точка: x<sub>2</sub> = 0.5, η<sub>2</sub> = 95 %.</div>
+<ol class="q" type="a"><li>Нагрузка, КПД и потери в первой точке</li><li>Параметры P<sub>c</sub> и P<sub>v1</sub></li><li>График потерь и КПД от x</li><li>Нагрузка с максимальным КПД</li></ol>
+
+<h3>Что это за установка</h3>
+<p>Статор мотора висит на подшипниках и может качаться. Когда ротор крутит нагрузку, статор стремится провернуться в обратную сторону с таким же моментом. Этот момент уравновешивают грузом m на рычаге длиной k. Значит <b>по грузу видно момент мотора</b>, а по моменту и скорости видно полезную мощность. Масса m<sub>0</sub> это груз, который понадобился даже на холостом ходу (перекос и трение), его вычитаем.</p>
+<div class="warn">Допущения: груз вычитается как (m − m<sub>0</sub>), и входная мощность P<sub>in</sub> = U·I (cos φ в условии не дан, значит считаем 1). Если препод на лабе считает иначе, подставь его формулу, а ход решения останется тем же.</div>
+
+<h3>a) Первая точка измерения</h3>
+<ol class="steps">
+<li><b class="t">Момент мотора</b>
+<div class="calc"><span class="ln">M = (m − m<sub>0</sub>)·g·k = (0.4 − 0.02)·9.81·0.35 = 1.3047 Nm</span></div></li>
+<li><b class="t">Угловая скорость</b>
+<div class="calc"><span class="ln">ω = <span class="fr"><span>2π·3000</span><span>60</span></span> = 314.16 rad/s</span></div></li>
+<li><b class="t">Полезная мощность</b>
+<div class="calc"><span class="ln">P<sub>useful</sub> = M·ω = 1.3047·314.16 = 409.9 W</span></div></li>
+<li><b class="t">Коэффициент нагрузки</b>
+<div class="calc"><span class="ln">x<sub>1</sub> = <span class="fr"><span>P<sub>useful</sub></span><span>P<sub>n</sub></span></span> = <span class="fr"><span>409.9</span><span>420</span></span> = <span class="ans">0.976</span></span></div></li>
+<li><b class="t">Вход, КПД и потери</b>
+<div class="calc">
+<span class="ln">P<sub>in</sub> = U·I = 220·2 = 440 W</span>
+<span class="ln">η<sub>1</sub> = <span class="fr"><span>409.9</span><span>440</span></span> = <span class="ans">93.2 %</span></span>
+<span class="ln">P<sub>loss1</sub> = 440 − 409.9 = <span class="ans">30.1 W</span></span>
+</div></li>
+</ol>
+
+<h3>b) Параметры P<sub>c</sub> и P<sub>v1</sub></h3>
+<p>Для электрической машины n = 2, значит P<sub>loss</sub> = P<sub>c</sub> + x²·P<sub>v1</sub>. Неизвестных два, поэтому нужны две точки. Первая у нас есть, вторую вытащим из условия.</p>
+<ol class="steps">
+<li><b class="t">Вторая точка</b>
+<div class="calc">
+<span class="ln">P<sub>useful2</sub> = x<sub>2</sub>·P<sub>n</sub> = 0.5·420 = 210 W</span>
+<span class="ln">P<sub>in2</sub> = <span class="fr"><span>P<sub>useful2</sub></span><span>η<sub>2</sub></span></span> = <span class="fr"><span>210</span><span>0.95</span></span> = 221.05 W</span>
+<span class="ln">P<sub>loss2</sub> = 221.05 − 210 = 11.05 W</span>
+</div></li>
+<li><b class="t">Система из двух уравнений</b>
+<div class="calc">
+<span class="ln">P<sub>c</sub> + 0.9525·P<sub>v1</sub> = 30.11   (точка 1)</span>
+<span class="ln">P<sub>c</sub> + 0.25·P<sub>v1</sub> = 11.05   (точка 2)</span>
+</div></li>
+<li><b class="t">Вычитаем одно из другого, P<sub>c</sub> исчезает</b>
+<div class="calc">
+<span class="ln">(0.9525 − 0.25)·P<sub>v1</sub> = 30.11 − 11.05</span>
+<span class="ln">P<sub>v1</sub> = <span class="fr"><span>19.05</span><span>0.7025</span></span> = <span class="ans">27.13 W</span></span>
+</div></li>
+<li><b class="t">Подставляем в уравнение второй точки</b>
+<div class="calc"><span class="ln">P<sub>c</sub> = 11.05 − 0.25·27.13 = <span class="ans">4.27 W</span></span></div></li>
+</ol>
+
+<h3>c) График</h3>
+<p>Функции для построения: P<sub>loss</sub>(x) = 4.27 + 27.13·x², а КПД считаем по формуле из листа (7.0.1), в ней уже стоят твои P<sub>c</sub> и P<sub>v1</sub>:</p>
+<span class="eq">η(x) = <span class="fr"><span>x·P<sub>n</sub></span><span>x·P<sub>n</sub> + P<sub>c</sub> + x²·P<sub>v1</sub></span></span></span>
+<div class="chartbox">
+<svg class="chart" viewBox="0 0 360 270" role="img" aria-label="Потери и КПД в зависимости от коэффициента нагрузки">
+<line class="gr" x1="40" x2="320" y1="30.0" y2="30.0"/><text class="tl" x="35" y="33.5" text-anchor="end">50</text><text class="tr" x="325" y="33.5" text-anchor="start">100</text><line class="gr" x1="40" x2="320" y1="70.8" y2="70.8"/><text class="tl" x="35" y="74.3" text-anchor="end">40</text><text class="tr" x="325" y="74.3" text-anchor="start">80</text><line class="gr" x1="40" x2="320" y1="111.6" y2="111.6"/><text class="tl" x="35" y="115.1" text-anchor="end">30</text><text class="tr" x="325" y="115.1" text-anchor="start">60</text><line class="gr" x1="40" x2="320" y1="152.4" y2="152.4"/><text class="tl" x="35" y="155.9" text-anchor="end">20</text><text class="tr" x="325" y="155.9" text-anchor="start">40</text><line class="gr" x1="40" x2="320" y1="193.2" y2="193.2"/><text class="tl" x="35" y="196.7" text-anchor="end">10</text><text class="tr" x="325" y="196.7" text-anchor="start">20</text><line class="gr" x1="40" x2="320" y1="234.0" y2="234.0"/><text class="tl" x="35" y="237.5" text-anchor="end">0</text><text class="tr" x="325" y="237.5" text-anchor="start">0</text><line class="gr" x1="40.0" x2="40.0" y1="30" y2="234"/><text class="tx" x="40.0" y="248" text-anchor="middle">0.0</text><line class="gr" x1="86.7" x2="86.7" y1="30" y2="234"/><text class="tx" x="86.7" y="248" text-anchor="middle">0.2</text><line class="gr" x1="133.3" x2="133.3" y1="30" y2="234"/><text class="tx" x="133.3" y="248" text-anchor="middle">0.4</text><line class="gr" x1="180.0" x2="180.0" y1="30" y2="234"/><text class="tx" x="180.0" y="248" text-anchor="middle">0.6</text><line class="gr" x1="226.7" x2="226.7" y1="30" y2="234"/><text class="tx" x="226.7" y="248" text-anchor="middle">0.8</text><line class="gr" x1="273.3" x2="273.3" y1="30" y2="234"/><text class="tx" x="273.3" y="248" text-anchor="middle">1.0</text><line class="gr" x1="320.0" x2="320.0" y1="30" y2="234"/><text class="tx" x="320.0" y="248" text-anchor="middle">1.2</text>
+<line class="ax" x1="40" x2="320" y1="234" y2="234"/>
+<line class="opt" x1="132.6" x2="132.6" y1="24" y2="234"/>
+<text class="tx" x="136.6" y="18" text-anchor="start">x_opt = 0.40</text>
+<path class="cl" d="M40.0,216.6 L42.3,216.6 L44.7,216.5 L47.0,216.5 L49.3,216.4 L51.7,216.3 L54.0,216.2 L56.3,216.0 L58.7,215.9 L61.0,215.7 L63.3,215.5 L65.7,215.2 L68.0,215.0 L70.3,214.7 L72.7,214.4 L75.0,214.1 L77.3,213.7 L79.7,213.4 L82.0,213.0 L84.3,212.6 L86.7,212.1 L89.0,211.7 L91.3,211.2 L93.7,210.7 L96.0,210.2 L98.3,209.7 L100.7,209.1 L103.0,208.5 L105.3,207.9 L107.7,207.3 L110.0,206.6 L112.3,205.9 L114.7,205.2 L117.0,204.5 L119.3,203.8 L121.7,203.0 L124.0,202.2 L126.3,201.4 L128.7,200.6 L131.0,199.7 L133.3,198.9 L135.7,198.0 L138.0,197.1 L140.3,196.1 L142.7,195.1 L145.0,194.2 L147.3,193.2 L149.7,192.1 L152.0,191.1 L154.3,190.0 L156.7,188.9 L159.0,187.8 L161.3,186.6 L163.7,185.5 L166.0,184.3 L168.3,183.1 L170.7,181.9 L173.0,180.6 L175.3,179.3 L177.7,178.0 L180.0,176.7 L182.3,175.4 L184.7,174.0 L187.0,172.6 L189.3,171.2 L191.7,169.8 L194.0,168.4 L196.3,166.9 L198.7,165.4 L201.0,163.9 L203.3,162.3 L205.7,160.8 L208.0,159.2 L210.3,157.6 L212.7,156.0 L215.0,154.3 L217.3,152.6 L219.7,151.0 L222.0,149.2 L224.3,147.5 L226.7,145.7 L229.0,144.0 L231.3,142.2 L233.7,140.3 L236.0,138.5 L238.3,136.6 L240.7,134.7 L243.0,132.8 L245.3,130.9 L247.7,128.9 L250.0,126.9 L252.3,124.9 L254.7,122.9 L257.0,120.9 L259.3,118.8 L261.7,116.7 L264.0,114.6 L266.3,112.4 L268.7,110.3 L271.0,108.1 L273.3,105.9 L275.7,103.7 L278.0,101.4 L280.3,99.2 L282.7,96.9 L285.0,94.6 L287.3,92.2 L289.7,89.9 L292.0,87.5 L294.3,85.1 L296.7,82.7 L299.0,80.2 L301.3,77.7 L303.7,75.3 L306.0,72.7 L308.3,70.2 L310.7,67.7 L313.0,65.1 L315.3,62.5 L317.7,59.9 L320.0,57.2"/>
+<path class="ce" d="M40.0,234.0 L42.3,132.9 L44.7,98.9 L47.0,81.9 L49.3,71.7 L51.7,64.9 L54.0,60.1 L56.3,56.6 L58.7,53.8 L61.0,51.7 L63.3,49.9 L65.7,48.5 L68.0,47.3 L70.3,46.3 L72.7,45.4 L75.0,44.7 L77.3,44.0 L79.7,43.5 L82.0,43.0 L84.3,42.6 L86.7,42.2 L89.0,41.9 L91.3,41.6 L93.7,41.4 L96.0,41.2 L98.3,41.0 L100.7,40.8 L103.0,40.7 L105.3,40.5 L107.7,40.4 L110.0,40.3 L112.3,40.2 L114.7,40.2 L117.0,40.1 L119.3,40.1 L121.7,40.0 L124.0,40.0 L126.3,40.0 L128.7,40.0 L131.0,39.9 L133.3,39.9 L135.7,40.0 L138.0,40.0 L140.3,40.0 L142.7,40.0 L145.0,40.0 L147.3,40.0 L149.7,40.1 L152.0,40.1 L154.3,40.2 L156.7,40.2 L159.0,40.2 L161.3,40.3 L163.7,40.3 L166.0,40.4 L168.3,40.5 L170.7,40.5 L173.0,40.6 L175.3,40.6 L177.7,40.7 L180.0,40.8 L182.3,40.8 L184.7,40.9 L187.0,41.0 L189.3,41.0 L191.7,41.1 L194.0,41.2 L196.3,41.3 L198.7,41.3 L201.0,41.4 L203.3,41.5 L205.7,41.6 L208.0,41.7 L210.3,41.7 L212.7,41.8 L215.0,41.9 L217.3,42.0 L219.7,42.1 L222.0,42.2 L224.3,42.3 L226.7,42.3 L229.0,42.4 L231.3,42.5 L233.7,42.6 L236.0,42.7 L238.3,42.8 L240.7,42.9 L243.0,43.0 L245.3,43.1 L247.7,43.2 L250.0,43.2 L252.3,43.3 L254.7,43.4 L257.0,43.5 L259.3,43.6 L261.7,43.7 L264.0,43.8 L266.3,43.9 L268.7,44.0 L271.0,44.1 L273.3,44.2 L275.7,44.3 L278.0,44.4 L280.3,44.5 L282.7,44.6 L285.0,44.7 L287.3,44.8 L289.7,44.9 L292.0,45.0 L294.3,45.1 L296.7,45.2 L299.0,45.3 L301.3,45.4 L303.7,45.5 L306.0,45.6 L308.3,45.7 L310.7,45.8 L313.0,45.9 L315.3,46.0 L317.7,46.1 L320.0,46.2"/>
+<circle class="pl" cx="267.7" cy="111.2" r="4"/><circle class="pe" cx="267.7" cy="44.0" r="4"/><text class="tx" x="274.7" y="106.2">1</text><circle class="pl" cx="156.7" cy="188.9" r="4"/><circle class="pe" cx="156.7" cy="40.2" r="4"/><text class="tx" x="163.7" y="183.9">2</text>
+<text class="tl" transform="translate(10 132) rotate(-90)" text-anchor="middle">P_loss, W</text>
+<text class="tr" transform="translate(352 132) rotate(-90)" text-anchor="middle">η, %</text>
+<text class="tx" x="180" y="264" text-anchor="middle">x (load factor)</text>
+</svg>
+<div class="legend"><span><i style="background:var(--amber)"></i>P<sub>loss</sub> (левая шкала)</span><span><i style="background:var(--accent)"></i>η (правая шкала)</span></div>
+<div class="legend"><span>Точки 1 и 2 это измерения из пункта a и условия</span></div>
+</div>
+<div class="tblwrap"><table><thead><tr><th>x</th><th>P<sub>loss</sub>, W</th><th>η, %</th></tr></thead><tbody><tr><td>0.2</td><td>5.4</td><td>94.0</td></tr><tr><td>0.4</td><td>8.6</td><td>95.1</td></tr><tr><td>0.5</td><td>11.1</td><td>95.0</td></tr><tr><td>0.8</td><td>21.6</td><td>94.0</td></tr><tr><td>1.0</td><td>31.4</td><td>93.0</td></tr></tbody></table></div>
+<p>Потери при x = 0 равны P<sub>c</sub> (4.3 W): машина ничего не делает, но греется. КПД при x = 0 равен нулю, потом быстро растёт, достигает максимума и медленно падает, потому что x²·P<sub>v1</sub> начинает кусаться.</p>
+
+<h3>d) Нагрузка с максимальным КПД</h3>
+<p>Откуда формула из листа: максимум η это минимум потерь на единицу полезной мощности, P<sub>loss</sub>/x = P<sub>c</sub>/x + x·P<sub>v1</sub>. Производная по x равна −P<sub>c</sub>/x² + P<sub>v1</sub> = 0, отсюда x² = P<sub>c</sub>/P<sub>v1</sub>. Смысл простой: КПД лучше всего там, где постоянные потери сравнялись с переменными.</p>
+<div class="calc"><span class="ln">x<sub>opt</sub> = √(<span class="fr"><span>4.27</span><span>27.13</span></span>) = <span class="ans">0.397</span></span>
+<span class="ln">η<sub>max</sub> = <span class="fr"><span>x·P<sub>n</sub></span><span>x·P<sub>n</sub> + 2P<sub>c</sub></span></span> = 95.1 %   (в оптимуме x²P<sub>v1</sub> = P<sub>c</sub>)</span></div>
+<div class="final"><b>Ответ:</b> a) x<sub>1</sub> = 0.976, η<sub>1</sub> = 93.2 %, P<sub>loss1</sub> = 30.1 W. b) P<sub>c</sub> = 4.27 W, P<sub>v1</sub> = 27.13 W. d) x<sub>opt</sub> = 0.40 (η<sub>max</sub> ≈ 95.1 %).</div>
+
+<h2 id="tasks">5 задач для тренировки</h2>
+<p>Решай на бумаге, потом открывай ответ. Если не сходится, смотри, где ты облажался: в единицах, в RPM → rad/s или в том, что считал среднее через КПД вместо энергий.</p>
+
+<div class="task">
+<h3>Задача 1 · Червячная передача</h3>
+<div class="given"><span class="lab">Дано</span>Червяк с z<sub>1</sub> = 2 заходами вращает колесо с z<sub>2</sub> = 36 зубьями. КПД передачи η = 72 %. Мотор крутит червяк n<sub>1</sub> = 1200 RPM, момент на колесе M<sub>2</sub> = 600 Nm.</div>
+<ol class="q" type="a"><li>Найти i.</li><li>Найти M<sub>2</sub>/M<sub>1</sub> и момент на червяке M<sub>1</sub>.</li><li>Найти n<sub>2</sub>, мощность мотора и мощность потерь.</li></ol>
+<details class="answer"><summary>Ответ</summary><div class="in">
+<p>a) i = z<sub>2</sub>/z<sub>1</sub> = 36/2 = <b>18</b>.</p>
+<p>b) M<sub>2</sub>/M<sub>1</sub> = η·i = 0.72·18 = <b>12.96</b>, M<sub>1</sub> = 600/12.96 = <b>46.3 Nm</b>.</p>
+<p>c) n<sub>2</sub> = 1200/18 = <b>66.7 RPM</b>. ω<sub>1</sub> = 2π·1200/60 = 125.66 rad/s, P<sub>1</sub> = M<sub>1</sub>·ω<sub>1</sub> = <b>5818 W</b> ≈ 5.82 kW. Выход P<sub>2</sub> = 600·6.981 = 4189 W, потери = 5818 − 4189 = <b>1629 W</b>.</p>
+</div></details></div>
+
+<div class="task">
+<h3>Задача 2 · Цикл работы станка</h3>
+<div class="given"><span class="lab">Дано</span>Станок повторяет цикл T = 30 min. При работе (на полной нагрузке) P<sub>in1</sub> = 12 kW, η<sub>1</sub> = 85 %. При смене заготовки P<sub>in2</sub> = 2 kW. Работа идёт 24 min, смена 6 min.</div>
+<ol class="q" type="a"><li>Найти средний КПД и среднюю нагрузку за цикл.</li><li>Сколько минут может длиться смена заготовки, чтобы средний КПД остался не ниже 80 %?</li></ol>
+<details class="answer"><summary>Ответ</summary><div class="in">
+<p>a) P<sub>useful1</sub> = 0.85·12 = 10.2 kW. W<sub>useful</sub> = 10.2·24/60 = 4.08 kWh, W<sub>in</sub> = (12·24 + 2·6)/60 = 5.00 kWh. η<sub>avg</sub> = 4.08/5.00 = <b>81.6 %</b>. x<sub>avg</sub> = 24/30 = <b>0.80</b>.</p>
+<p>b) Разрешено на минуту работы: P<sub>allowed</sub> = 10.2/0.8 = 12.75 kW. Бюджет на холостой ход: ΔP = 12.75 − 12 = 0.75 kW. t<sub>2</sub>/t<sub>1</sub> = 0.75/2 = 0.375. t<sub>1</sub> = 30/(1 + 0.375) = 21.82 min, поэтому смена до <b>8.2 min</b>.</p>
+</div></details></div>
+
+<div class="task">
+<h3>Задача 3 · Балансирный мотор</h3>
+<div class="given"><span class="lab">Дано</span>n = 1500 RPM, P<sub>n</sub> = 750 W, m<sub>0</sub> = 0.05 kg, k = 0.4 m. Первая точка: m = 1.1 kg, U = 230 V, I = 3.5 A. Вторая точка: x<sub>2</sub> = 0.4, η<sub>2</sub> = 78 %. Мотор электрический, n = 2.</div>
+<ol class="q" type="a"><li>x<sub>1</sub>, η<sub>1</sub> и P<sub>loss1</sub>.</li><li>P<sub>c</sub> и P<sub>v1</sub>.</li><li>x<sub>opt</sub> и η<sub>max</sub>.</li></ol>
+<details class="answer"><summary>Ответ</summary><div class="in">
+<p>a) M = (1.1 − 0.05)·9.81·0.4 = 4.120 Nm, ω = 157.08 rad/s, P<sub>useful</sub> = 647.2 W. <b>x<sub>1</sub> = 0.863</b>. P<sub>in</sub> = 230·3.5 = 805 W, <b>η<sub>1</sub> = 80.4 %</b>, <b>P<sub>loss1</sub> = 157.8 W</b>.</p>
+<p>b) Точка 2: P<sub>useful2</sub> = 300 W, P<sub>in2</sub> = 300/0.78 = 384.6 W, P<sub>loss2</sub> = 84.6 W. Вычитаем уравнения: P<sub>v1</sub> = (157.8 − 84.6)/(0.745 − 0.16) = <b>125.2 W</b>, P<sub>c</sub> = 84.6 − 0.16·125.2 = <b>64.6 W</b>.</p>
+<p>c) x<sub>opt</sub> = √(64.6/125.2) = <b>0.718</b>, η<sub>max</sub> = 80.7 %.</p>
+</div></details></div>
+
+<div class="task">
+<h3>Задача 4 · Насос</h3>
+<div class="given"><span class="lab">Дано</span>Насос (гидравлическая машина, n = 3) с P<sub>n</sub> = 10 kW, постоянные потери P<sub>c</sub> = 0.4 kW, переменные при x = 1 P<sub>v1</sub> = 1.2 kW.</div>
+<ol class="q" type="a"><li>η при полной нагрузке (x = 1).</li><li>Нагрузка с максимальным КПД.</li><li>η<sub>max</sub>.</li><li>η при x = 0.3.</li></ol>
+<details class="answer"><summary>Ответ</summary><div class="in">
+<p>a) η(1) = 10/(10 + 0.4 + 1.2) = <b>86.2 %</b>.</p>
+<p>b) x<sub>opt</sub> = ∛(P<sub>c</sub>/(2P<sub>v1</sub>)) = ∛(0.4/2.4) = ∛0.1667 = <b>0.550</b>.</p>
+<p>c) P<sub>useful</sub> = 5.50 kW, P<sub>loss</sub> = 0.4 + 0.550³·1.2 = 0.600 kW, η<sub>max</sub> = <b>90.2 %</b>.</p>
+<p>d) η(0.3) = 3/(3 + 0.4 + 0.027·1.2) = <b>87.4 %</b>. На малой нагрузке постоянные потери съедают КПД.</p>
+</div></details></div>
+
+<div class="task">
+<h3>Задача 5 · Двухрежимный мотор</h3>
+<div class="given"><span class="lab">Дано</span>Электромотор (n = 2): P<sub>n</sub> = 4 kW, P<sub>c</sub> = 0.2 kW, P<sub>v1</sub> = 0.3 kW. За смену работает 6 h при x = 0.9, потом 2 h при x = 0.3.</div>
+<ol class="q" type="a"><li>КПД в каждом из двух режимов.</li><li>Средний КПД и средняя нагрузка за 8 h.</li><li>x<sub>opt</sub> и η<sub>max</sub>.</li></ol>
+<details class="answer"><summary>Ответ</summary><div class="in">
+<p>a) При x = 0.9: P<sub>useful</sub> = 3.6 kW, P<sub>loss</sub> = 0.2 + 0.81·0.3 = 0.443 kW, <b>η = 89.0 %</b>. При x = 0.3: P<sub>useful</sub> = 1.2 kW, P<sub>loss</sub> = 0.2 + 0.09·0.3 = 0.227 kW, <b>η = 84.1 %</b>.</p>
+<p>b) W<sub>useful</sub> = 3.6·6 + 1.2·2 = 24.0 kWh. W<sub>in</sub> = 4.043·6 + 1.427·2 = 27.11 kWh. <b>η<sub>avg</sub> = 88.5 %</b>. x<sub>avg</sub> = 24.0/(4·8) = <b>0.75</b>.</p>
+<p>c) x<sub>opt</sub> = √(0.2/0.3) = <b>0.816</b>, η<sub>max</sub> = 89.1 %. Заметь, что средний КПД (88.5 %) лежит между КПД режимов и ниже максимума: это нормально.</p>
+</div></details></div>
+
+<h2 id="cheat">Чит-шит</h2>
+<div class="cheat">
+<section><h3>Мощность и энергия</h3>
+<span class="eq">P<sub>in</sub> = P<sub>useful</sub> + P<sub>loss</sub></span>
+<span class="eq">P = M·ω   ·   ω = 2π·n/60</span>
+<span class="eq">W = P·t   (P постоянная)</span>
+<span class="eq">P<sub>in</sub> = U·I   (мотор)</span>
+</section>
+<section><h3>КПД и нагрузка</h3>
+<span class="eq">η = P<sub>useful</sub>/P<sub>in</sub></span>
+<span class="eq">x = P<sub>useful</sub>/P<sub>n</sub></span>
+<span class="eq">η<sub>avg</sub> = W<sub>useful</sub>/W<sub>in</sub></span>
+<span class="eq">x<sub>avg</sub> = W<sub>useful</sub>/W<sub>nom</sub></span>
+</section>
+<section><h3>Потери</h3>
+<span class="eq">P<sub>loss</sub> = P<sub>c</sub> + x<sup>n</sup>·P<sub>v1</sub></span>
+<span class="eq">η(x) = <span class="fr"><span>x·P<sub>n</sub></span><span>x·P<sub>n</sub> + P<sub>c</sub> + x<sup>n</sup>P<sub>v1</sub></span></span></span>
+<ul><li>n = 1 механика (шкивы)</li><li>n = 2 электрика (моторы)</li><li>n = 3 гидравлика (насосы, вентиляторы)</li></ul>
+</section>
+<section><h3>Оптимум по КПД</h3>
+<span class="eq">n = 2: x<sub>opt</sub> = √(<span class="fr"><span>P<sub>c</sub></span><span>P<sub>v1</sub></span></span>)</span>
+<span class="eq">n = 3: x<sub>opt</sub> = ∛(<span class="fr"><span>P<sub>c</sub></span><span>2P<sub>v1</sub></span></span>)</span>
+<ul><li>Общая формула: x<sup>n</sup> = P<sub>c</sub>/((n−1)·P<sub>v1</sub>)</li><li>n = 1: оптимума нет, η растёт до бесконечной нагрузки</li><li>В оптимуме переменные потери = постоянным при n = 2</li></ul>
+</section>
+<section><h3>Редуктор и червяк</h3>
+<span class="eq">i = <span class="fr"><span>ω<sub>1</sub></span><span>ω<sub>2</sub></span></span> = <span class="fr"><span>z<sub>2</sub></span><span>z<sub>1</sub></span></span> = <span class="fr"><span>n<sub>1</sub></span><span>n<sub>2</sub></span></span></span>
+<span class="eq">η = <span class="fr"><span>M<sub>2</sub>/M<sub>1</sub></span><span>i</span></span>  ⇒  M<sub>2</sub> = η·i·M<sub>1</sub></span>
+<ul><li>1 = вход (ведущая), 2 = выход (ведомая)</li><li>У червяка z<sub>1</sub> это число заходов, часто 1</li></ul>
+</section>
+<section><h3>Как решать, по шагам</h3>
+<ul>
+<li>Выпиши, что вход, что выход, что дано в W, kW, RPM, Nm.</li>
+<li>Всё в СИ: kW → W, RPM → rad/s, % → доля.</li>
+<li>Редуктор: найди i, потом моменты и мощности.</li>
+<li>Цикл: η<sub>avg</sub> = сумма W<sub>useful</sub> / сумма W<sub>input</sub>. Если ищешь время: P<sub>useful1</sub>/η<sub>avg</sub> − P<sub>in1</sub> = бюджет на холостой ход, делишь на P<sub>in2</sub> → t<sub>2</sub>/t<sub>1</sub>, потом t<sub>1</sub> = T/(1 + t<sub>2</sub>/t<sub>1</sub>).</li>
+<li>Две точки измерения: два уравнения P<sub>loss</sub> = P<sub>c</sub> + x²P<sub>v1</sub>, вычитай, чтобы убрать P<sub>c</sub>.</li>
+<li>Оптимум: формула для своей n.</li>
+<li>Проверь: η меньше 1, потери положительные, P<sub>in</sub> больше P<sub>useful</sub>.</li>
+</ul>
+</section>
+<section><h3>Где обычно косячат</h3>
+<ul>
+<li>Путают n в степени с n в RPM.</li>
+<li>Забывают перевести RPM в рад/с (делить на 60, умножать на 2π).</li>
+<li>Берут среднее арифметическое КПД вместо отношения энергий.</li>
+<li>Оставляют проценты как 64 вместо 0.64.</li>
+<li>Не вычитают m<sub>0</sub> в балансирной установке.</li>
+<li>Мешают kW и W, минуты и часы.</li>
+<li>Берут P<sub>n</sub> как входную, а она полезная.</li>
+</ul>
+</section>
+</div>
+
+</div>
+
+</body></html>
