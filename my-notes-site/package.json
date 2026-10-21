@@ -1,0 +1,11 @@
+{
+  "name": "my-notes-site",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "build": "node build.mjs",
+    "preview": "node build.mjs && npx serve dist"
+  }
+}
